@@ -38,7 +38,6 @@ public class StartupListener implements ServletContextListener{
         //TEST user
         User user = new User(1, 1, "gschmidt");   
     	sce.getServletContext().setAttribute("user",user);
-     
     }       
 
     @Override
@@ -46,5 +45,4 @@ public class StartupListener implements ServletContextListener{
         MomowDAO db = (MomowDAO)sce.getServletContext().getAttribute("db");
         db.close();
     }
-    
 }
