@@ -32,7 +32,7 @@
         <h2 class="flash">${flash}</h2>
         <table>
             <tr><th>Click Needed Option</th></tr> 
-            <tr><td><a href="main?action=createService">Select Services</a></td></tr>
+            <tr><td><a href="main?action=createService">Create Service Order</a></td></tr>
             <tr><td><a href="main?action=listService">List Services</a></td></tr>
             <tr><td><a href="main?action=registration">Update Membership</a></td></tr>
             </ul>
