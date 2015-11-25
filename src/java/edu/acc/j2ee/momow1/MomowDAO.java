@@ -43,12 +43,12 @@ public class MomowDAO {
     public List<ServiceOrder> getListServices(int id) {
         List<ServiceOrder> listServices = new ArrayList<>();
         String sql = "SELECT * FROM service_order " 
-                    + "WHERE memberid = 1 AND expiration_date IS null "
+                    + "WHERE memberid = " + id + " AND expiration_date IS null "
                     + "ORDER BY need_by_date DESC";
         Statement stat = null;
         ResultSet rs = null;
         try {
-            stat = CONN.createStatement();
+            stat = CONN.createStatement();       
             rs = stat.executeQuery(sql);
             while (rs.next()) {
                 //check for need by date is null
