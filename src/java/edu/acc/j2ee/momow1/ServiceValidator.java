@@ -53,7 +53,11 @@ public class ServiceValidator {
     
     public static boolean validateSelectedServices(String[] arraySelectedServices){
         
-        if (arraySelectedServices.length == 0){
+        if(arraySelectedServices == null){
+            return false;
+            
+        }
+        if(arraySelectedServices.length == 0){
             return false;
         }
         return true;
