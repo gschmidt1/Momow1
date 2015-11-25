@@ -38,25 +38,23 @@ public class Controller extends HttpServlet {
     
       private String createServices(HttpServletRequest request) {
         if (request.getMethod().equals("GET")) return "createService";
-        
+        String [] inArraySelectedServices = null;
+        Date needByDate = null;
         String inServiceGroup = request.getParameter("serviceGroup");         
         String inNeedByDate = request.getParameter("needByDate");
         String inSpecialInstructions = request.getParameter("specialInstructions");
-        String[] inArraySelectedServices = request.getParameterValues("selectedServices");
+        inArraySelectedServices = request.getParameterValues("selectedServices");
                 
-        Date needByDate = null;
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try{
             needByDate = df.parse(inNeedByDate);
         }catch(ParseException pe){
-            request.setAttribute("flash", "Need By Date Error.");
-            return "createService";
+            needByDate = null;
         }
         if (!ServiceValidator.validateService(needByDate, inSpecialInstructions, inArraySelectedServices)) {
              request.setAttribute("flash", "One or more fields is invalid.");
             return "createService";
         }
-        
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
         User loginUser = (User) getServletContext().getAttribute("user");
         
@@ -71,19 +69,27 @@ public class Controller extends HttpServlet {
         return listServices(request);
     }
     private String editService(HttpServletRequest request) {
-        if (request.getMethod().equals("GET")) return "editService";
-   
+        String[] inArraySelectedServices  = null;  
         int serviceId = Integer.parseInt(request.getParameter("serviceId"));   
         String inNeedByDate = request.getParameter("needByDate");
         String inSpecialInstructions = request.getParameter("specialInstructions");
-        String[] inArraySelectedServices = request.getParameterValues("selectedServices");
-                
+        inArraySelectedServices = request.getParameterValues("selectedServices");
+        
+        //TEST
+        request.setAttribute("needByDate", inNeedByDate);
+        
         Date needByDate = null;
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         try{
             needByDate = df.parse(inNeedByDate);
         }catch(ParseException pe){
             request.setAttribute("flash", "Need By Date Error.");
+            return "editService";
+        }
+        
+        //validation  
+        if (!ServiceValidator.validateService(needByDate, inSpecialInstructions, inArraySelectedServices)) {
+             request.setAttribute("flash", "One or more fields is invalid.");
             return "editService";
         }
         
@@ -116,9 +122,12 @@ public class Controller extends HttpServlet {
     }
 
     private String listServices(HttpServletRequest request) {
+        
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
         //pass in member id
-        List<ServiceOrder> listServices = db.getListServices(1);
+        User loginUser = (User) getServletContext().getAttribute("user");
+        
+        List<ServiceOrder> listServices = db.getListServices(loginUser.getMemberId());
         if (db.getLastError() != null)
             request.setAttribute("flash", db.getLastError());
         request.setAttribute("listServices", listServices);
