@@ -70,13 +70,11 @@ public class Controller extends HttpServlet {
     }
     private String editService(HttpServletRequest request) {
         String[] inArraySelectedServices  = null;  
+        String inServiceGroup = request.getParameter("serviceGroup"); 
         int serviceId = Integer.parseInt(request.getParameter("serviceId"));   
         String inNeedByDate = request.getParameter("needByDate");
         String inSpecialInstructions = request.getParameter("specialInstructions");
         inArraySelectedServices = request.getParameterValues("selectedServices");
-        
-        //TEST
-        request.setAttribute("needByDate", inNeedByDate);
         
         Date needByDate = null;
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -96,7 +94,9 @@ public class Controller extends HttpServlet {
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
         User loginUser = (User) getServletContext().getAttribute("user");
        
-        db.editService(serviceId, needByDate, inSpecialInstructions, inArraySelectedServices);
+        ServiceOrder displayService = new ServiceOrder(loginUser.getMemberId(), inServiceGroup, needByDate, inSpecialInstructions, inArraySelectedServices);
+        
+        db.editService(displayService);
         if (db.getLastError() != null) {
             request.setAttribute("flash", db.getLastError());
             return "editService";
