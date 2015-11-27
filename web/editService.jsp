@@ -44,31 +44,71 @@
         </div> 
         <h1>Edit Services</h1>
         <h2 class="flash">${flash}</h2>
+        
+        <c:choose>
+            <c:when test="${displayService.id ne null}">
+            <c:set var="paramServiceId" value="${displayService.id}"/>
+            </c:when>
+        <c:otherwise>
+            <c:set var="paramServiceId" value="${param.serviceId}"/>
+        </c:otherwise>
+        </c:choose>
+        
+        <c:choose>
+            <c:when test="${displayService.needByDate ne null}">
+            <c:set var="paramNeedByDate" value="${displayService.needByDate}"/>
+            </c:when>
+        <c:otherwise>
+            <c:set var="paramNeedByDate" value="${param.needByDate}"/>
+            <fmt:parseDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="paramNeedByDate" />
+        </c:otherwise>
+        </c:choose>
+
         <form method="POST" action="main">
+            <input 
             <input type="hidden" name="action" value="editService"/>
-            <input type="hidden" name="serviceId" value="${displayService.id}" />
+            <input type="hidden" name="serviceId" value="<c:out value="${paramServiceId}"/>"/>             
             <table>
-                <tr><td>Service: </td><td>${displayService.serviceGroup}</td></tr>
-                <tr><td>Need by Date: </td><td><fmt:formatDate pattern="MM/dd/yyyy" value="${displayService.needByDate}" var="formattedDate" type="date" /><input type="text" name="needByDate" value="${formattedDate}" id="datepicker1" /></td></tr>                           
+                <tr><td>Service: </td><td><select name="serviceGroup"><option value="${displayService.serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>  
+                <tr><td>Need by Date: </td><td>         
+                        <fmt:formatDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="formattedDate" type="date" />
+                       <input type="text" name="needByDate" value="${formattedDate}" id="datepicker1" /></td></tr>                          
                 <tr><td>Scheduled Date: </td><td><fmt:formatDate value="${displayService.scheduledDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="Not Yet"/></td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>
                 <tr><td colspan="2"><textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(displayService.instruction)}"/></textarea>
                 <tr><td colspan="2">Lawn Services: </td></tr>  
         <c:forEach var="service" items="${services}">
-            <tr><td><input type="checkbox" name="selectedServices" value="${service.serviceType}"  
-                <c:choose>
-                    <c:when test="${service.serviceType eq displayService.serviceTypeMow}"> 
-                        checked="checked"
-                    </c:when>
-                    <c:when test="${service.serviceType eq displayService.serviceTypeRake}"> 
-                        checked="checked"
-                    </c:when>
-                    <c:when test="${service.serviceType eq displayService.serviceTypeEdge}"> 
-                        checked="checked"
-                    </c:when>
+            <tr><td><input type="checkbox" name="selectedServices" value="${service.serviceType}" 
+              <c:choose>
+                  <c:when test="${displayService.serviceTypeMow ne null or
+                                    displayService.serviceTypeRake ne null or
+                                        displayService.serviceTypeEdge ne null}">  
+                        <c:choose>
+                            <c:when test="${service.serviceType eq displayService.serviceTypeMow}"> 
+                            checked="checked"
+                            </c:when>
+                            <c:when test="${service.serviceType eq displayService.serviceTypeRake}"> 
+                            checked="checked"
+                            </c:when>
+                            <c:when test="${service.serviceType eq displayService.serviceTypeEdge}"> 
+                            checked="checked"
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>        
                     <c:otherwise>
-                    </c:otherwise>
-                </c:choose>
+                        <c:forEach var="paramSelectedService" items="${paramValues.selectedServices}"> 
+                            <c:choose>
+                                <c:when test="${service.serviceType eq paramSelectedService}">
+                                checked="checked"   
+                                </c:when>
+                                <c:otherwise>
+                                </c:otherwise>    
+                            </c:choose>    
+                        </c:forEach>  
+                    </c:otherwise>       
+              </c:choose>              
             /></td><td>${service.serviceTypeDescription}</td></tr>      
         </c:forEach>
             <tr>
