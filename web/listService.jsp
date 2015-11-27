@@ -28,9 +28,6 @@
         <table>
             <h2 class="flash">${flash}</h2>
             <h2 class="success">${success}</h2>
-            
-            
-            
                 <tr><th>Service</th><th>Need by Date</th><th>Scheduled Date</th><th>Completed</th></tr>
             <c:forEach var="list" items="${listServices}">
                 <tr>
