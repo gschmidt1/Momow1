@@ -21,7 +21,7 @@
 			showOn: "button",
 			buttonImage: "css/images/calendar.gif",
 			buttonImageOnly: true,
-                        minDate: 0, 
+                       <%-- remove minDate: 0, --%> 
                         maxDate: "+6M"
 		});
 	});
@@ -64,6 +64,15 @@
         </c:otherwise>
         </c:choose>
         
+         <c:choose>
+            <c:when test="${displayService.instruction ne null}">
+            <c:set var="paramInstruction" value="${displayService.instruction}"/>
+            </c:when>
+        <c:otherwise>
+            <c:set var="paramInstruction" value="${param.specialInstructions}"/>
+        </c:otherwise>
+        </c:choose>
+        
         <form method="POST" action="main">
             <input 
             <input type="hidden" name="action" value="editService"/>
@@ -75,7 +84,7 @@
                        <input type="text" name="needByDate" value="${formattedDate}" id="datepicker1" /></td></tr>                          
                 <tr><td>Scheduled Date: </td><td><fmt:formatDate value="${displayService.scheduledDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="Not Yet"/></td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>
-                <tr><td colspan="2"><textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(displayService.instruction)}"/></textarea>
+                <tr><td colspan="2"><textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(paramInstruction)}"/></textarea>
                 <tr><td colspan="2">Lawn Services: </td></tr>  
         <c:forEach var="service" items="${services}">
             <tr><td><input type="checkbox" name="selectedServices" value="${service.serviceType}" 
