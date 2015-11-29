@@ -30,7 +30,8 @@ public class Controller extends HttpServlet {
             case "listService": action = listServices(request); break; 
             case "displayService": action = displayService(request); break;     
             case "member": action = "member"; break;   
-            case "login": action = "login"; break;   
+         //   case "login": action = "login"; break;   
+            case "login": action = login(request); break;
             default: action = "home";
         }
         request.getRequestDispatcher(action + ".jsp").forward(request,response);
@@ -56,7 +57,10 @@ public class Controller extends HttpServlet {
             return "createService";
         }
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
-        User loginUser = (User) getServletContext().getAttribute("user");
+        
+        User loginUser = (User) request.getSession().getAttribute("user");
+        
+        //User loginUser = (User) getServletContext().getAttribute("user");
         
         ServiceOrder serviceOrder = new ServiceOrder(loginUser.getMemberId(), inServiceGroup, needByDate, inSpecialInstructions, inArraySelectedServices);
                 
@@ -92,7 +96,8 @@ public class Controller extends HttpServlet {
         }
         
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
-        User loginUser = (User) getServletContext().getAttribute("user");
+        //User loginUser = (User) getServletContext().getAttribute("user");
+        User loginUser = (User) request.getSession().getAttribute("user");
        
         ServiceOrder displayService = new ServiceOrder(loginUser.getMemberId(), inServiceGroup, needByDate, inSpecialInstructions, inArraySelectedServices);
         
@@ -125,7 +130,8 @@ public class Controller extends HttpServlet {
         
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
         //pass in member id
-        User loginUser = (User) getServletContext().getAttribute("user");
+        //User loginUser = (User) getServletContext().getAttribute("user");
+        User loginUser = (User) request.getSession().getAttribute("user");
         
         List<ServiceOrder> listServices = db.getListServices(loginUser.getMemberId());
         if (db.getLastError() != null)
@@ -157,6 +163,28 @@ public class Controller extends HttpServlet {
         request.setAttribute("displayService", displayService);
         request.setAttribute("serviceId", id);
         return "editService";
+    }
+     
+     private String login(HttpServletRequest request) {
+        if (request.getMethod().equals("GET")) return "login";
+        String userName = request.getParameter("user");
+        String password = request.getParameter("pass");
+        Login login = new Login(userName, password);
+        if (LoginValidator.validate(login)) {
+            MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
+            User user = db.authenticate(userName, password);
+            if (user == null) {
+                String error = db.getLastError();
+                request.setAttribute("flash", (error == null? "Access Denied" : error));
+                return "login";
+            } else {
+                request.getSession().setAttribute("user", user);
+                return "member";
+            }
+        } else {
+            request.setAttribute("flash", "Invalid user name or password");
+            return "login";
+        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

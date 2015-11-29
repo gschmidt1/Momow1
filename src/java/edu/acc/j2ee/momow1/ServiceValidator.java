@@ -11,12 +11,13 @@ public class ServiceValidator {
             return false;
         }
        if(!validateSpecialInstructions(specialInstructions)){
+    
             return false;
         }
        if(!validateSelectedServices(arraySelectedServices)){
-            return false;
+             return false;
         }
-        return true;   
+        return true;    
     }
     public static boolean validateSpecialInstructions(String specialInstructions){
         

@@ -24,6 +24,11 @@ public class User implements java.io.Serializable {
         this.userName =  userName;
     }
     
+     public User(String userName, int id) {
+        this.userName = userName;
+        this.id = id;
+    }
+     
     /**
      * @return the id
      */

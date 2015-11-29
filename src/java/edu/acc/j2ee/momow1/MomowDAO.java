@@ -304,7 +304,7 @@ public class MomowDAO {
         }
     }
     
-    public void editService(int serviceId, Date needByDate, String specialInstructions, String[] arraySelectedServices){
+    public void editService(ServiceOrder serviceOrder){
         String sql = "UPDATE service_order "
                    + "SET need_by_date = ?, service_type_mow = ?, service_type_edge = ?, "
                    + "service_type_rake = ?, instruction = ?, change_user_name = ?, change_date = ? " 
@@ -312,14 +312,14 @@ public class MomowDAO {
         PreparedStatement pstat = null;
         try {
             pstat = CONN.prepareStatement(sql);
-            pstat.setDate(1, new java.sql.Date(needByDate.getTime()));
-            pstat.setString(2, arraySelectedServices[0]);
-            pstat.setString(3, arraySelectedServices[1]);
-            pstat.setString(4, arraySelectedServices[2]);
-            pstat.setString(5, specialInstructions);
+            pstat.setDate(1, new java.sql.Date(serviceOrder.getNeedByDate().getTime()));
+            pstat.setString(2, serviceOrder.getServiceTypeMow());
+            pstat.setString(3, serviceOrder.getServiceTypeEdge());
+            pstat.setString(4, serviceOrder.getServiceTypeRake());
+            pstat.setString(5, serviceOrder.getInstruction());
             pstat.setString(6, "javauser");
             pstat.setTimestamp(7, GenericUtilities.getCurrentTimeStamp()); 
-            pstat.setInt(8, serviceId);
+            pstat.setInt(8, serviceOrder.getId());
             pstat.executeUpdate();
             lastError = null;
         } catch (SQLException sqle) {
@@ -361,6 +361,43 @@ public class MomowDAO {
         }
     }        
     
+    public User authenticate(String userName, String password) {
+        User user = null;
+        String sql = "SELECT * FROM users WHERE username = '%s' AND password = '%s'";
+        sql = String.format(sql, userName, password);
+        Statement stat = null;
+        ResultSet rs = null;
+        try {
+            stat = CONN.createStatement();
+            rs = stat.executeQuery(sql);
+            if (rs.next()) {
+                user = new User(
+                        rs.getInt("id"),
+                        rs.getInt("memberid"),
+                        rs.getString("username")
+                       
+                );
+            }
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+        return user;
+    }
+
     public void close() {
         if (CONN != null) {
             try {

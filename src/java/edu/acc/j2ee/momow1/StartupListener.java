@@ -36,8 +36,8 @@ public class StartupListener implements ServletContextListener{
          sce.getServletContext().setAttribute("company",company);
          
         //TEST user
-        User user = new User(1, 1, "gschmidt");   
-    	sce.getServletContext().setAttribute("user",user);
+       // User user = new User(1, 1, "gschmidt");   
+    //	sce.getServletContext().setAttribute("user",user);
     }       
 
     @Override
