@@ -42,21 +42,39 @@
             </ul>
         </div>       
       
-        <h1>Select Services</h1>
+        <h1>Create Service Order</h1>
         <h2 class="flash">${flash}</h2>
+        
+        ${param.needByDate}
+        
+        <c:if test="${!empty param.needByDate}">
+            <c:set var="paramNeedByDate" value="${param.needByDate}"/>
+             <fmt:parseDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="formattedDate" />
+             <p>${formattedDate}</p>
+        </c:if>
+            
         <form method="POST" action="main">
             <input type="hidden" name="action" value="createService"/>
             <table>
-                <tr><td>Service: </td><td><select name="serviceGroup"><option value="lawn">Lawn</option></select></td></tr>
-                <tr><td>Need by Date: </td><td><input type="text" name="needByDate" id="datepicker1"></td></tr>        
+                <tr><td>Service: </td><td><select name="serviceGroup"><option value="${services[0].serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>
+                <tr><td>Need by Date: </td><td><input type="text" name="needByDate" value="${param.needByDate}" id="datepicker1" /></td></tr>        
             </table>
             Special Instructions: 
             <br>
-            <textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(content)}"/></textarea>
+            <textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(param.specialInstructions)}"/></textarea>
             <br>
             ${fn:trim(displayService.instruction)}
             <c:forEach var="service" items="${services}">
-                <input type="checkbox" name="selectedServices" value="${service.serviceType}">
+                <input type="checkbox" name="selectedServices" value="${service.serviceType}"
+                <c:forEach var="paramSelectedService" items="${paramValues.selectedServices}"> 
+                            <c:choose>
+                                <c:when test="${service.serviceType eq paramSelectedService}">
+                                checked="checked"   
+                                </c:when>
+                                <c:otherwise>
+                                </c:otherwise>    
+                            </c:choose>    
+                  /></c:forEach>
                 ${service.serviceTypeDescription}
                 <br>      
             </c:forEach>
