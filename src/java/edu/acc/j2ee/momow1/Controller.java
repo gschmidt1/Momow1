@@ -134,9 +134,13 @@ public class Controller extends HttpServlet {
         User loginUser = (User) request.getSession().getAttribute("user");
         
         List<ServiceOrder> listServices = db.getListServices(loginUser.getMemberId());
-        if (db.getLastError() != null)
+        if (db.getLastError() != null){
             request.setAttribute("flash", db.getLastError());
+        }    
         request.setAttribute("listServices", listServices);
+        if (!ListServiceValidator.validateArrayListIsEmpty(listServices)){
+            request.setAttribute("success", "No Active Service Orders");
+        }
         return "listService";
     }
     
