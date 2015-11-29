@@ -63,7 +63,7 @@
             <fmt:parseDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="paramNeedByDate" />
         </c:otherwise>
         </c:choose>
-
+        
         <form method="POST" action="main">
             <input 
             <input type="hidden" name="action" value="editService"/>
