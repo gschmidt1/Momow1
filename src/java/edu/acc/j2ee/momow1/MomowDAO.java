@@ -406,4 +406,186 @@ public class MomowDAO {
             }
         }
     }
+    
+     public int register(RegistrationBean bean) {
+        int userId = 0;
+        int memberId = 0;
+        userId = insertUser(bean);
+        if (getLastError() != null) {
+            return 0;
+        }
+        
+        memberId = insertMember(bean, userId);
+        if (getLastError() != null) {
+            return 0;
+        }
+        updateUser(userId, memberId);
+        if (getLastError() != null) {
+            return 0;
+        }
+        return userId;
+    }
+     
+    public int insertUser(RegistrationBean bean) {
+        int userId = 0;
+        String sql = "INSERT INTO USERS (username,password, create_user_name, create_date, change_user_name, change_date)";
+        sql += " VALUES (?,?,?,?,?,?)";
+        PreparedStatement pstat = null;
+        ResultSet rs = null;
+        try {
+            pstat = CONN.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstat.setString(1, bean.getUserName());
+            pstat.setString(2, bean.getPassword1());
+            pstat.setString(3, "javauser");
+            pstat.setTimestamp(4, GenericUtilities.getCurrentTimeStamp());       
+            pstat.setString(5, "javauser");
+            pstat.setTimestamp(6, GenericUtilities.getCurrentTimeStamp());
+            pstat.executeUpdate();
+            rs = pstat.getGeneratedKeys();
+            if (rs.next()) {
+                userId = rs.getInt(1);
+            }
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (pstat != null) {
+                try {
+                    pstat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+        return userId;
+    }
+    
+    public int insertMember(RegistrationBean bean, int userId) {
+        String sql = "INSERT INTO members(userid, firstname, lastname, address, city, st, zip,"
+                   + " phone, text_flag, email, create_user_name, create_date, change_user_name, change_date )";
+        sql += " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstat = null;
+        ResultSet rs = null;
+        int memberId = 0;
+        try {
+            pstat = CONN.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstat.setInt(1, userId);
+            pstat.setString(2, bean.getFirstName());
+            pstat.setString(3, bean.getLastName());
+            pstat.setString(4, bean.getAddress());
+            pstat.setString(5, bean.getCity());
+            pstat.setString(6, bean.getState());
+            pstat.setString(7, bean.getZipCode());
+            pstat.setString(8, bean.getPhone());
+            pstat.setBoolean(9, bean.isTextFlag());
+            pstat.setString(10, bean.getEmail());
+            pstat.setString(11, "javauser");
+            pstat.setTimestamp(12, GenericUtilities.getCurrentTimeStamp());       
+            pstat.setString(13, "javauser");
+            pstat.setTimestamp(14, GenericUtilities.getCurrentTimeStamp());
+            
+            pstat.executeUpdate();
+            rs = pstat.getGeneratedKeys();
+            if (rs.next()) {
+                memberId = rs.getInt(1);
+            }
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (pstat != null) {
+                try {
+                    pstat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+
+        return memberId;
+    }
+    
+     public void updateUser(int userId, int memberId) {
+        String sql = "UPDATE users SET memberid = ?, change_user_name = ?, change_date = ?"
+                + " WHERE id = ?";
+        PreparedStatement pstat = null;
+        ResultSet rs = null;
+        try {
+            pstat = CONN.prepareStatement(sql);
+            pstat.setInt(1, memberId);
+            pstat.setString(3, "javauser");
+            pstat.setTimestamp(4, GenericUtilities.getCurrentTimeStamp());
+            pstat.setInt(5, userId);
+            pstat.executeUpdate();
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (pstat != null) {
+                try {
+                    pstat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+    }
+     
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM USERS WHERE id = " + userId;
+        Statement stat = null;
+        ResultSet rs = null;
+        User user = null;
+        try {
+            stat = CONN.createStatement();
+            rs = stat.executeQuery(sql);
+            if (rs.next()) {
+                /*
+                 user = new User(
+                 rs.getString("username"),
+                 new Date(rs.getDate("joindate").getTime()),
+                 rs.getInt("id")
+                 );
+                 */
+                user = new User(
+                        rs.getInt("id"),
+                        rs.getInt("memberid"),
+                        rs.getString("username")
+                        
+                );
+            }
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+        return user;
+    }
 }

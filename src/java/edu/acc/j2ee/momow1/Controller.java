@@ -22,7 +22,7 @@ public class Controller extends HttpServlet {
             case "home": action = "home"; break;
             case "about": action = "about"; break;
             case "contact": action = "contact"; break;
-            case "registration": action = "registration"; break;
+            case "registration": action = registration(request); break;
             case "createService": action = createServices(request); break; 
             case "displayEditService": action = displayEditService(request); break;     
             case "editService": action = editService(request); break;
@@ -190,6 +190,43 @@ public class Controller extends HttpServlet {
             return "login";
         }
     }
+     
+    private String registration(HttpServletRequest request) {
+        if (request.getMethod().equals("GET")) return "registration";      
+        boolean textFlag;
+        
+        String userName = request.getParameter("user");
+        String password1 = request.getParameter("pass1");
+        String password2 = request.getParameter("pass2");
+        String firstName = request.getParameter("fname");
+        String lastName = request.getParameter("lname");
+        String address = request.getParameter("address");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
+        String zip  = request.getParameter("zip");
+        String phone  = request.getParameter("phone");
+        textFlag = (request.getParameter("textFlag") == null) ? false : true;
+        String email  = request.getParameter("email");
+        RegistrationBean registrationBean = new RegistrationBean(userName, password1, password2, firstName, 
+                                        lastName, address, city, state, zip, phone,
+                                            textFlag, email);
+        if (!RegistrationValidator.isValid(registrationBean)) {
+            request.setAttribute("flash", "One or more fields are invalid.");
+            request.setAttribute("registrationBean", registrationBean);
+            return "registration";
+        }
+        MomowDAO db = (MomowDAO)getServletContext().getAttribute("db");
+        int userId = db.register(registrationBean);
+        if (db.getLastError() != null) {
+            request.setAttribute("flash", db.getLastError());
+            request.setAttribute("registrationBean", registrationBean);
+            return "registration";
+        }
+        User user = db.getUserById(userId);
+        request.getSession().setAttribute("user", user);
+        return "member";
+    }
+
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
