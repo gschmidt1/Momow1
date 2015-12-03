@@ -5,10 +5,13 @@ public class RegistrationValidator {
     public static boolean isValid(RegistrationBean bean) {
         if (!bean.getUserName().matches("^\\w{4,12}$"))
             return false;
-        if (!bean.getPassword1().matches("^[^'\"&<>]{6,15}$"))
-            return false;
-        if (!bean.getPassword2().equals(bean.getPassword1()))
-            return false;
+        
+        if(!bean.getMode().equals("edit")){
+            if (!bean.getPassword1().matches("^[^'\"&<>]{6,15}$"))
+                return false;
+            if (!bean.getPassword2().equals(bean.getPassword1()))
+                return false;
+        }
         if (!bean.getFirstName().matches("^[A-Za-z. -]{1,20}$"))
             return false;
         if (!bean.getLastName().matches("^[A-Za-z -']{1,30}$"))

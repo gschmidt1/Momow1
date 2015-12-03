@@ -572,6 +572,78 @@ public class MomowDAO {
         }
     }
      
+     public void editUsername(UsernameBean usernameBean, int userId) {
+        String sql = "UPDATE users SET username = ?, change_user_name = ?, change_date = ?"
+                + " WHERE id = ?";
+        PreparedStatement pstat = null;
+        ResultSet rs = null;
+        try {
+            pstat = CONN.prepareStatement(sql);
+            pstat.setString(1, usernameBean.getUserName());
+            pstat.setString(2, "javauser");
+            pstat.setTimestamp(3, GenericUtilities.getCurrentTimeStamp());
+            pstat.setInt(4, userId);
+            pstat.executeUpdate();
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (pstat != null) {
+                try {
+                    pstat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+    }
+     
+     public void editRegistration(int memberId, RegistrationBean registrationBean) {
+        String sql = "UPDATE registration SET firstname = ?, lastname = ?, address = ?,"
+                + " city = ?, st = ?, zip = ?, phone = ?, text_flag = ?, "
+                + " email = ?, change_user_name = ?, change_date = ?"
+                + " WHERE id = ?";
+        PreparedStatement pstat = null;
+        ResultSet rs = null;
+        try {
+            pstat = CONN.prepareStatement(sql);
+            pstat.setString(1, registrationBean.getFirstName());
+            pstat.setString(2, registrationBean.getLastName());
+            pstat.setString(3, registrationBean.getAddress());
+            pstat.setString(4, registrationBean.getCity());
+            pstat.setString(5, registrationBean.getState());
+            pstat.setString(6, registrationBean.getZipCode());
+            pstat.setString(7, registrationBean.getPhone());
+            pstat.setBoolean(8, registrationBean.isTextFlag());
+            pstat.setString(9, registrationBean.getEmail());
+            pstat.setString(10, "javauser");
+            pstat.setTimestamp(11, GenericUtilities.getCurrentTimeStamp()); 
+            pstat.setInt(12, memberId);
+            pstat.executeUpdate();
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (pstat != null) {
+                try {
+                    pstat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+    }
+     
     public User getUserById(int userId) {
         String sql = "SELECT * FROM USERS WHERE id = " + userId;
         Statement stat = null;
@@ -663,4 +735,41 @@ public class MomowDAO {
         return registrationBean;
     
     }
+public UsernameBean displayEditUsername(int userId) {
+       String sql = "SELECT * FROM users AS u"
+                  + " u.id = " + userId; 
+        Statement stat = null;
+        ResultSet rs = null;
+        UsernameBean usernameBean = null;
+       try {
+            stat = CONN.createStatement();
+            rs = stat.executeQuery(sql);
+            if (rs.next()) {
+                usernameBean = new UsernameBean();
+                        usernameBean.setUserName(rs.getString("username"));       
+            }
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+        return usernameBean;
+    }
 }
+
+
+
+
+

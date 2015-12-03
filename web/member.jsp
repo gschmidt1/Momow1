@@ -36,7 +36,8 @@
             <tr><td><a href="main?action=createService">Create Service Order</a></td></tr>
             <tr><td><a href="main?action=listService">List Services</a></td></tr>
             <tr><td><a href="main?action=editRegistration&mode=display">Update Membership</a></td></tr>
-             <tr><td><a href="main?action=editPassword&mode=display">Update Password</a></td></tr>
+            <tr><td><a href="main?action=editPassword&mode=display">Update Password</a></td></tr>
+            <tr><td><a href="main?action=editUsername&mode=display">Update Username</a></td></tr>
         </table>
     </body>
 </html>

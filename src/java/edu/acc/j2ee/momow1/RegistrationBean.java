@@ -1,6 +1,7 @@
 package edu.acc.j2ee.momow1;
 
 public class RegistrationBean implements java.io.Serializable {
+    private String mode;
     private String userName;
     private String password1;
     private String password2;
@@ -16,9 +17,10 @@ public class RegistrationBean implements java.io.Serializable {
     
     public RegistrationBean() {}
     
-    public RegistrationBean(String userName, String password1, String password2, String firstName,
+    public RegistrationBean(String mode, String userName, String password1, String password2, String firstName,
             String lastName, String address, String city, String state, String zipCode,
             String phone, boolean textFlag, String email) {
+        this.mode = mode;
         this.userName = userName;
         this.password1 = password1;
         this.password2 = password2;
@@ -157,5 +159,19 @@ public class RegistrationBean implements java.io.Serializable {
      */
     public void setCity(String city) {
         this.city = city;
+    }
+
+    /**
+     * @return the mode
+     */
+    public String getMode() {
+        return mode;
+    }
+
+    /**
+     * @param mode the mode to set
+     */
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }

@@ -30,6 +30,7 @@
         <h1>Register for Momow</h1>
         <h2 class="flash">${flash}</h2>
         <form method="POST" action="main">
+            <input type="hidden" name="mode" value="create"/>
             <input type="hidden" name="action" value="registration"/>
             <table id="formtable">
                 <tr><td>Pick a User Name:</td><td><input value="${registrationBean.userName}" type="text" name="user" placeholder="4 to 12 characters."/></td></tr>
