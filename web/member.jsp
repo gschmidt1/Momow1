@@ -30,12 +30,13 @@
         </div>  
         <h1>Member Services</h1>
         <h2 class="flash">${flash}</h2>
+        <h2 class="success">${success}</h2>
         <table>
             <tr><th>Click Needed Option</th></tr> 
             <tr><td><a href="main?action=createService">Create Service Order</a></td></tr>
             <tr><td><a href="main?action=listService">List Services</a></td></tr>
-            <tr><td><a href="main?action=registration">Update Membership</a></td></tr>
-            </ul>
+            <tr><td><a href="main?action=editRegistration&mode=display">Update Membership</a></td></tr>
+             <tr><td><a href="main?action=editPassword&mode=display">Update Password</a></td></tr>
         </table>
     </body>
 </html>

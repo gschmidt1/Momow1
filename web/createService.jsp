@@ -74,7 +74,7 @@
                                 <c:otherwise>
                                 </c:otherwise>    
                             </c:choose>    
-                  /></c:forEach>
+                  </c:forEach>/>
                 ${service.serviceTypeDescription}
                 <br>      
             </c:forEach>

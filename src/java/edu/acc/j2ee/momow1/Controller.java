@@ -24,8 +24,11 @@ public class Controller extends HttpServlet {
             case "contact": action = "contact"; break;
             case "registration": action = registration(request); break;
             case "createService": action = createServices(request); break; 
-            case "displayEditService": action = displayEditService(request); break;     
-            case "editService": action = editService(request); break;
+            case "editService": action = editService(request); break;     
+            case "Service": action = editService(request); break;
+                
+            case "editRegistration": action = editRegistration(request); break;
+            case "editPassword": action = editPassword(request); break;
             case "deleteService": action = deleteService(request); break; 
             case "listService": action = listServices(request); break; 
             case "displayService": action = displayService(request); break;     
@@ -59,9 +62,7 @@ public class Controller extends HttpServlet {
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
         
         User loginUser = (User) request.getSession().getAttribute("user");
-        
-        //User loginUser = (User) getServletContext().getAttribute("user");
-        
+                
         ServiceOrder serviceOrder = new ServiceOrder(loginUser.getMemberId(), inServiceGroup, needByDate, inSpecialInstructions, inArraySelectedServices);
                 
         db.createServices(serviceOrder);
@@ -194,7 +195,6 @@ public class Controller extends HttpServlet {
     private String registration(HttpServletRequest request) {
         if (request.getMethod().equals("GET")) return "registration";      
         boolean textFlag;
-        
         String userName = request.getParameter("user");
         String password1 = request.getParameter("pass1");
         String password2 = request.getParameter("pass2");
@@ -226,7 +226,70 @@ public class Controller extends HttpServlet {
         request.getSession().setAttribute("user", user);
         return "member";
     }
-
+    
+     private String editRegistration(HttpServletRequest request) {
+        boolean textFlag;    
+        RegistrationBean registrationBean = null;
+          String mode = request.getParameter("mode");       
+        //Mode = Edit
+        if(mode.equals("edit")){
+        String userName = request.getParameter("user");
+        String password1 = request.getParameter("pass1");
+        String password2 = request.getParameter("pass2");
+        String firstName = request.getParameter("fname");
+        String lastName = request.getParameter("lname");
+        String address = request.getParameter("address");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
+        String zip  = request.getParameter("zip");
+        String phone  = request.getParameter("phone");
+        textFlag = (request.getParameter("textFlag") == null) ? false : true;
+        String email  = request.getParameter("email");
+        registrationBean = new RegistrationBean(userName, password1, password2, firstName, 
+                                        lastName, address, city, state, zip, phone,
+                                            textFlag, email);
+        if (!RegistrationValidator.isValid(registrationBean)) {
+            request.setAttribute("flash", "One or more fields are invalid.");
+            request.setAttribute("registrationBean", registrationBean);
+            return "editRegistration";
+        }
+        }
+        
+        //Mode = Display
+        if(mode.equals("display")){    
+        MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
+        User loginUser = (User) request.getSession().getAttribute("user");
+        registrationBean = db.displayEditRegistration(loginUser.getId());
+        if (db.getLastError() != null)
+            request.setAttribute("flash", db.getLastError());
+        request.setAttribute("registrationBean", registrationBean);
+        }
+        return "editRegistration";
+        }
+     
+     private String editPassword(HttpServletRequest request) {
+        if (request.getMethod().equals("GET")) return "editPassword";  
+    
+        PasswordBean passwordBean = null;
+        String mode = request.getParameter("mode");           
+        String password1 = request.getParameter("pass1");
+        String password2 = request.getParameter("pass2");      
+        passwordBean = new PasswordBean(password1, password2);
+        
+        if (!PasswordValidator.isValid(passwordBean)) {
+            request.setAttribute("flash", "Invalid password.");
+            return "editPassword";
+        }
+        MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
+        User loginUser = (User) request.getSession().getAttribute("user");
+        db.editPassword(loginUser.getId(), passwordBean);
+        if (db.getLastError() != null) {
+            request.setAttribute("flash", db.getLastError());
+            return "editPasword";
+        }
+        request.setAttribute("success", "Successfully updated password");
+        return "member";
+     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

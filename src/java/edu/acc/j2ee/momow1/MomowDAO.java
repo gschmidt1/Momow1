@@ -304,6 +304,33 @@ public class MomowDAO {
         }
     }
     
+    //not actual deleting but updating exipiration date and will no longer be displayed 
+     public void deleteService(int serviceId){ 
+         String sql = "UPDATE service_order " 
+                   + "SET expiration_date = ?, change_user_name = ?, change_date = ?" 
+                    + "WHERE id = ?"; 
+        
+         PreparedStatement pstat = null; 
+         try { 
+             pstat = CONN.prepareStatement(sql); 
+             pstat.setDate(1, new java.sql.Date(new java.util.Date().getTime())); 
+             pstat.setString(2, "javauser"); 
+             pstat.setTimestamp(3, GenericUtilities.getCurrentTimeStamp());  
+             pstat.setInt(4, serviceId); 
+             pstat.executeUpdate(); 
+             lastError = null; 
+         } catch (SQLException sqle) { 
+             lastError = sqle.getMessage(); 
+         } finally { 
+             if (pstat != null) { 
+                 try { 
+                     pstat.close(); 
+                 } catch (SQLException sqle) { 
+                 } 
+             } 
+         } 
+     }         
+
     public void editService(ServiceOrder serviceOrder){
         String sql = "UPDATE service_order "
                    + "SET need_by_date = ?, service_type_mow = ?, service_type_edge = ?, "
@@ -333,20 +360,19 @@ public class MomowDAO {
             }
         }
     }
-    
-    //not actual deleting but updating exipiration date and will no longer be displayed
-    public void deleteService(int serviceId){
-        String sql = "UPDATE service_order "
-                   + "SET expiration_date = ?, change_user_name = ?, change_date = ?"
+     
+    public void editPassword(int userId, PasswordBean passwordBean){
+        String sql = "UPDATE users "
+                   + "SET password = ?, change_user_name = ?, change_date = ?"
                    + "WHERE id = ?";
       
         PreparedStatement pstat = null;
         try {
             pstat = CONN.prepareStatement(sql);
-            pstat.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            pstat.setString(1, passwordBean.getPassword1());
             pstat.setString(2, "javauser");
             pstat.setTimestamp(3, GenericUtilities.getCurrentTimeStamp()); 
-            pstat.setInt(4, serviceId);
+            pstat.setInt(4, userId);
             pstat.executeUpdate();
             lastError = null;
         } catch (SQLException sqle) {
@@ -587,5 +613,54 @@ public class MomowDAO {
             }
         }
         return user;
+    }
+    
+     public RegistrationBean displayEditRegistration(int userId) {
+       String sql = "SELECT * FROM users AS u"
+                  + " INNER JOIN members AS m"
+                  + " ON u.memberid = m.id"
+                  + " WHERE u.expiration_date IS null AND "
+                  + " m.expiration_date IS null AND "
+                  + " u.id = " + userId; 
+        Statement stat = null;
+        ResultSet rs = null;
+        RegistrationBean registrationBean = null;
+       try {
+            stat = CONN.createStatement();
+            rs = stat.executeQuery(sql);
+            if (rs.next()) {
+                registrationBean = new RegistrationBean();
+                        registrationBean.setUserName(rs.getString("username"));
+                        registrationBean.setPassword1(rs.getString("password"));
+                        registrationBean.setPassword2(rs.getString("password"));
+                        registrationBean.setFirstName(rs.getString("firstname"));
+                        registrationBean.setLastName(rs.getString("lastname"));
+                        registrationBean.setAddress(rs.getString("address"));
+                        registrationBean.setCity(rs.getString("city"));
+                        registrationBean.setState(rs.getString("st"));
+                        registrationBean.setZipCode(rs.getString("zip"));
+                        registrationBean.setPhone(rs.getString("phone"));
+                        registrationBean.setTextFlag(rs.getBoolean("text_flag"));
+                        registrationBean.setEmail(rs.getString("email"));   
+            }
+            lastError = null;
+        } catch (SQLException sqle) {
+            lastError = sqle.getMessage();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException sqle) {
+                }
+            }
+        }
+        return registrationBean;
+    
     }
 }
