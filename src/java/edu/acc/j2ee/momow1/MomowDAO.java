@@ -736,8 +736,8 @@ public class MomowDAO {
     
     }
 public UsernameBean displayEditUsername(int userId) {
-       String sql = "SELECT * FROM users AS u"
-                  + " u.id = " + userId; 
+       String sql = "SELECT * FROM users"
+                  + " WHERE id = " + userId; 
         Statement stat = null;
         ResultSet rs = null;
         UsernameBean usernameBean = null;

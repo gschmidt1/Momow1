@@ -35,11 +35,16 @@ public class Controller extends HttpServlet {
             case "member": action = "member"; break;   
          //   case "login": action = "login"; break;   
             case "login": action = login(request); break;
+            case "logout": action = logout(request); break;
             default: action = "home";
         }
         request.getRequestDispatcher(action + ".jsp").forward(request,response);
     }
-    
+       private String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "home";
+    }
+       
       private String createServices(HttpServletRequest request) {
         if (request.getMethod().equals("GET")) return "createService";
         String [] inArraySelectedServices = null;

@@ -38,9 +38,9 @@ public class ServiceValidator {
         if (checkString.indexOf("&") > 0) {
             return false;
         }
-        if (checkString.length() == 0) {
-            return false;
-        }
+      // if (checkString.length() == 0) {
+        //    return false;
+       // }
         return true;
     }
     

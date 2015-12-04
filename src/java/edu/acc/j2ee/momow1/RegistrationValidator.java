@@ -12,6 +12,8 @@ public class RegistrationValidator {
             if (!bean.getPassword2().equals(bean.getPassword1()))
                 return false;
         }
+        if (!bean.getPhone().matches("\\d{3}-\\d{3}-\\d{4}"))
+            return false;
         if (!bean.getFirstName().matches("^[A-Za-z. -]{1,20}$"))
             return false;
         if (!bean.getLastName().matches("^[A-Za-z -']{1,30}$"))
