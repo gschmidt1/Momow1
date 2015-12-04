@@ -102,7 +102,7 @@ public class Controller extends HttpServlet {
         }
         
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");
-        //User loginUser = (User) getServletContext().getAttribute("user");
+        
         User loginUser = (User) request.getSession().getAttribute("user");
        
         ServiceOrder displayService = new ServiceOrder(loginUser.getMemberId(), inServiceGroup, needByDate, inSpecialInstructions, inArraySelectedServices);
@@ -301,9 +301,15 @@ public class Controller extends HttpServlet {
             request.setAttribute("flash", db.getLastError());
             return "editUsername";
         }
+        //Reset Session Object USER
+        User user = db.getUserById(loginUser.getId());
+        request.getSession().setAttribute("user", user);       
         request.setAttribute("success", "Successfully updated username");
+        //Test 
+        loginUser = (User) request.getSession().getAttribute("user");
         return "member";
         }
+        
         //Mode = Display
         if(mode.equals("display")){    
         MomowDAO db = (MomowDAO) getServletContext().getAttribute("db");

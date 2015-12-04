@@ -132,5 +132,7 @@
         </form>
         <br>       
         <p><a href="main?action=listService">Back to List</a></p>   
+        <br>
+        <%@ include file="footer.jsp" %>
     </body>
 </html>

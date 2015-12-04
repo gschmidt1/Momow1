@@ -80,6 +80,7 @@
         </form>        
         
          <p><a href="main?action=member">Back to Member</a></p>
-         
+         <br>
+         <%@ include file="footer.jsp" %>
     </body>
 </html>

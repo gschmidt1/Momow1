@@ -3,7 +3,7 @@ package edu.acc.j2ee.momow1;
 import java.util.Date;
 
 public class Company {
-     
+
     private int id;
     private String companyName;
     private String address;
@@ -18,9 +18,9 @@ public class Company {
     private String changeUserName;
     private Date changeDate;
 
-    public Company(){
+    public Company() {
     }
-    
+
     /**
      * @return the id
      */
@@ -202,16 +202,16 @@ public class Company {
     public void setChangeDate(Date changeDate) {
         this.changeDate = changeDate;
     }
-    
+
     @Override
     public String toString() {
         return "Company [id=" + id + ", companyName=" + companyName
                 + ", address=" + address + ", city=" + city + ", state="
                 + st + ", zip=" + zip + ", email=" + email + ", phone=" + phone
                 + ", expirationDate=" + expirationDate
-                + ", createUserName=" + createUserName 
+                + ", createUserName=" + createUserName
                 + ", createDate=" + createDate
                 + ", changeUserName=" + changeUserName
                 + ", changeDate=" + changeDate + "]";
-    } 
+    }
 }

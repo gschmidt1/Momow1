@@ -39,5 +39,7 @@
             <tr><td><a href="main?action=editPassword&mode=display">Update Password</a></td></tr>
             <tr><td><a href="main?action=editUsername&mode=display">Update Username</a></td></tr>
         </table>
+        <br>
+        <%@ include file="footer.jsp" %>
     </body>
 </html>

@@ -39,8 +39,6 @@
         </form>
         <p><a href="main?action=home">Back to Home</a></p>
         <br>
-        <div class="footer">
-        glenn.schmidt@g.austincc.edu
-        </div>
+        <%@ include file="footer.jsp" %>
     </body>
 </html>

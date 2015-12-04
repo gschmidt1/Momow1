@@ -57,8 +57,6 @@
         </form>
         <p><a href="main?action=member">Back to Member</a></p>  
         <br>
-        <div class="footer">
-        glenn.schmidt@g.austincc.edu
-        </div>
+        <%@ include file="footer.jsp" %>
     </body>
 </html>

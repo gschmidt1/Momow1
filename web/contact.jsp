@@ -39,9 +39,7 @@
             <tr><td><b>Phone: </b>${company.phone}</td></tr>
         </table>
         <p></p>
-        <div class="footer">
-         glenn.schmidt@g.austincc.edu
-        </div>
+        <%@ include file="footer.jsp" %>
         </div>
     </body>
 </html>

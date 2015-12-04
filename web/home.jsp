@@ -4,15 +4,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-        
         <title>Momow Home Page</title>
-        
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>       
         <script src="js/jquery-1.11.3.js"></script>
         <link href="css/jquery-ui.css" rel="stylesheet">
 	<script src="external/jquery/jquery.js"></script>
         <script src="js/jquery-ui.js"></script>
-	
         <script>
     
         $(function () {
@@ -39,7 +36,6 @@
         setInterval(changeList, change_img_time);
 	
         });
-            
 	</script>
        
     </head>
@@ -51,25 +47,8 @@
             <p> the Great Mower</p>
 	</div>
         </div>
-        <div id="menu">
-            <ul>
-                <li><a href="main?action=home">Home</a></li>
-	        <li><a href="main?action=about">About Us</a></li>
-                <li><a href="main?action=contact">Contact Us</a></li>
-                <c:choose>
-                <c:when test="${user ne null}">
-                <li><a href="main?action=logout">Log Out</a></li>
-                </c:when>
-                <c:otherwise>
-                <li><a href="main?action=registration">Registration</a></li>
-                <li><a href="main?action=login">Login</a></li>
-                </c:otherwise>
-                </c:choose>
-            </ul>
-        </div>
-            
+        <%@ include file="header.jsp" %>
         <div id="bodyplus">
-         
         <table class="tableslider">
             <tr><td>
             <ul id="sliderUL">
@@ -81,9 +60,7 @@
         </td></tr>
         </table>
         <br>
-        <div class="footer">
-         glenn.schmidt@g.austincc.edu
-        </div>
+        <%@ include file="footer.jsp" %>
         </div>
         </div>
     </body>
