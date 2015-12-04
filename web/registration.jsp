@@ -42,7 +42,7 @@
                 <tr><td>Your City:</td><td><input value="${registrationBean.city}" type="text" name="city"/></td></tr>
                  <tr><td>Your State:</td><td><select name="state"><option value="TX">TX</option></select></td></tr>
                 <tr><td>Your Zip Code:</td><td><input value="${registrationBean.zipCode}" type="text" name="zip" placeholder="5 or 5-4 format"/></td></tr>
-                <tr><td>Your Phone#:</td><td><input value="${registrationBean.phone}" type="text" name="phone" placeholder="5 or 5-4 format"/></td></tr>
+                <tr><td>Your Phone#:</td><td><input value="${registrationBean.phone}" type="text" name="phone" placeholder="###-###-#### format"/></td></tr>
                 <tr><td>Allow Text:</td><td><input value="${registrationBean.textFlag}" type="checkbox" name="textFlag"/></td></tr>
                 <tr><td>Your Email Address:</td><td><input value="${registrationBean.email}" type="email" name="email"/></td></tr>
                 <tr><td colspan="2"><input type="submit" value="Submit"/></td></tr>

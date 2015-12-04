@@ -41,18 +41,13 @@
                 <li><a href="main?action=login">Login</a></li>
             </ul>
         </div>       
-      
         <h1>Create Service Order</h1>
         <h2 class="flash">${flash}</h2>
-        
-        ${param.needByDate}
-        
         <c:if test="${!empty param.needByDate}">
             <c:set var="paramNeedByDate" value="${param.needByDate}"/>
              <fmt:parseDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="formattedDate" />
              <p>${formattedDate}</p>
         </c:if>
-            
         <form method="POST" action="main">
             <input type="hidden" name="action" value="createService"/>
             <table>

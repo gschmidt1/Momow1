@@ -3,6 +3,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        
         <title>Momow Home Page</title>
         
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>       
@@ -47,7 +49,6 @@
         <div id="logo">
             <h1><a id="top">momow Home</a></h1>
             <p> the Great Mower</p>
-            
 	</div>
         </div>
         <div id="menu">
@@ -55,18 +56,20 @@
                 <li><a href="main?action=home">Home</a></li>
 	        <li><a href="main?action=about">About Us</a></li>
                 <li><a href="main?action=contact">Contact Us</a></li>
-	        <li><a href="main?action=registration">Registration</a></li>
+                <c:choose>
+                <c:when test="${user ne null}">
+                <li><a href="main?action=logout">Log Out</a></li>
+                </c:when>
+                <c:otherwise>
+                <li><a href="main?action=registration">Registration</a></li>
                 <li><a href="main?action=login">Login</a></li>
+                </c:otherwise>
+                </c:choose>
             </ul>
         </div>
             
         <div id="bodyplus">
-        <p><a href="main?action=member">Member</a></p>
-
-
-
-   
-        
+         
         <table class="tableslider">
             <tr><td>
             <ul id="sliderUL">

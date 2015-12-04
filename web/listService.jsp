@@ -20,15 +20,15 @@
 	        <li><a href="main?action=about">About Us</a></li>
                 <li><a href="main?action=contact">Contact Us</a></li>
 	        <li><a href="main?action=registration">Registration</a></li>
-                <li><a href="main?action=login">Login</a></li>
-                
+                <li><a href="main?action=login">Login</a></li>   
             </ul>
         </div>    
-        
         <table>
             <h2 class="flash">${flash}</h2>
             <h2 class="success">${success}</h2>
+            <c:if test="${not empty listServices}">
                 <tr><th>Service</th><th>Need by Date</th><th>Scheduled Date</th><th>Completed</th></tr>
+            </c:if>    
             <c:forEach var="list" items="${listServices}">
                 <tr>
                 <td><a href="main?action=displayService&id=${list.id}">${list.serviceGroup}</a></td>
@@ -38,9 +38,7 @@
                 </tr>
             </c:forEach>            
         </table> 
-           
         <p><a href="main?action=member">Back to Member</a></p>     
-
         </body>
 </html>
 
