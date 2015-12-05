@@ -1,10 +1,6 @@
-<%-- 
-    Document   : contact
-    Created on : Nov 10, 2015, 7:27:33 PM
-    Author     : gnonschmidt
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
     <head>

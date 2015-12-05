@@ -1,14 +1,10 @@
-<%-- 
-    Document   : member
-    Created on : Nov 8, 2015, 8:09:24 PM
-    Author     : gnonschmidt
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ 
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">       
         <title>Member Page</title>
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     </head>

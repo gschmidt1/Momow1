@@ -1,10 +1,6 @@
-<%-- 
-    Document   : registration
-    Created on : Nov 8, 2015, 8:02:49 PM
-    Author     : gnonschmidt
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
     <head>

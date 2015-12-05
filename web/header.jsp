@@ -1,5 +1,5 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +7,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-       
         <div id="menu">
             
             <ul>
@@ -16,6 +15,7 @@
                 <li><a href="main?action=contact">Contact Us</a></li>
                 <c:choose>
                 <c:when test="${user ne null}">
+                <li><a href="main?action=member">Member</a></li>
                 <li><a href="main?action=logout">Log Out</a></li>
                 </c:when>
                 <c:otherwise>
