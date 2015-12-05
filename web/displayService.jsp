@@ -12,20 +12,10 @@
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     </head>
     <body>
-        <div id="logo">
-            <h1><a id="top">momow Display</a></h1>
-            <p> the Great Mower</p>
-            <br><br><br><br>
-	</div>
-        <div id="menu">
-            <ul>
-                <li><a href="main?action=home">Home</a></li>
-	        <li><a href="main?action=about">About Us</a></li>
-                <li><a href="main?action=contact">Contact Us</a></li>
-	        <li><a href="main?action=registration">Registration</a></li>
-                <li><a href="main?action=login">Login</a></li>
-            </ul>
-        </div> 
+        <c:set var="logoName" value="Display" /> 
+        <%@ include file="logo.jsp" %>
+        <%@ include file="header.jsp" %>
+        <h2>Service Order</h2>
         <h2 class="flash">${flash}</h2>
         <table>
                 <tr><td>Service: </td><td>${displayService.serviceGroup}</td></tr>
@@ -33,7 +23,6 @@
                 <tr><td>Scheduled Date: </td><td><fmt:formatDate value="${displayService.scheduledDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="Not Yet"/></td></tr>
                 <tr><td>Completed Date: </td><td><fmt:formatDate value="${displayService.completedDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="No"/></td></tr>
                 <tr><td>Completed: </td><td>${list.completedFlag ? 'Yes' : 'No'}</td></tr>
-  
                 <tr><td colspan="2">Special Instructions: </td></tr>
                 <tr><td colspan="2"><textarea name="postText" rows="7" maxlength="140" disabled><c:out value="${fn:trim(displayService.instruction)}"/></textarea>
                 <tr><td colspan="2">Lawn Services: </td></tr>  

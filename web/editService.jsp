@@ -28,23 +28,11 @@
 	</script>
     </head>
     <body>
-        <div id="logo">
-            <h1><a id="top">momow Edit</a></h1>
-            <p> the Great Mower</p>
-            <br><br><br><br>
-	</div>
-        <div id="menu">
-            <ul>
-                <li><a href="main?action=home">Home</a></li>
-	        <li><a href="main?action=about">About Us</a></li>
-                <li><a href="main?action=contact">Contact Us</a></li>
-	        <li><a href="main?action=registration">Registration</a></li>
-                <li><a href="main?action=login">Login</a></li>
-            </ul>
-        </div> 
-        <h1>Edit Services</h1>
+        <c:set var="logoName" value="Edit" /> 
+        <%@ include file="logo.jsp" %>
+        <%@ include file="header.jsp" %>
+        <h2>Edit Services</h2>
         <h2 class="flash">${flash}</h2>
-        
         <c:choose>
             <c:when test="${displayService.id ne null}">
             <c:set var="paramServiceId" value="${displayService.id}"/>
@@ -53,7 +41,6 @@
             <c:set var="paramServiceId" value="${param.serviceId}"/>
         </c:otherwise>
         </c:choose>
-        
         <c:choose>
             <c:when test="${displayService.needByDate ne null}">
             <c:set var="paramNeedByDate" value="${displayService.needByDate}"/>
@@ -63,7 +50,6 @@
             <fmt:parseDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="paramNeedByDate" />
         </c:otherwise>
         </c:choose>
-        
          <c:choose>
             <c:when test="${displayService.instruction ne null}">
             <c:set var="paramInstruction" value="${displayService.instruction}"/>
@@ -72,7 +58,6 @@
             <c:set var="paramInstruction" value="${param.specialInstructions}"/>
         </c:otherwise>
         </c:choose>
-        
         <form method="POST" action="main">
             <input 
             <input type="hidden" name="action" value="editService"/>

@@ -389,7 +389,8 @@ public class MomowDAO {
     
     public User authenticate(String userName, String password) {
         User user = null;
-        String sql = "SELECT * FROM users WHERE username = '%s' AND password = '%s'";
+        String sql = "SELECT * FROM users "
+                    + "WHERE expiration_date IS null and username = '%s' AND password = '%s'";
         sql = String.format(sql, userName, password);
         Statement stat = null;
         ResultSet rs = null;
@@ -400,8 +401,7 @@ public class MomowDAO {
                 user = new User(
                         rs.getInt("id"),
                         rs.getInt("memberid"),
-                        rs.getString("username")
-                       
+                        rs.getString("username")            
                 );
             }
             lastError = null;
@@ -549,9 +549,9 @@ public class MomowDAO {
         try {
             pstat = CONN.prepareStatement(sql);
             pstat.setInt(1, memberId);
-            pstat.setString(3, "javauser");
-            pstat.setTimestamp(4, GenericUtilities.getCurrentTimeStamp());
-            pstat.setInt(5, userId);
+            pstat.setString(2, "javauser");
+            pstat.setTimestamp(3, GenericUtilities.getCurrentTimeStamp());
+            pstat.setInt(4, userId);
             pstat.executeUpdate();
             lastError = null;
         } catch (SQLException sqle) {
@@ -645,7 +645,8 @@ public class MomowDAO {
     }
      
     public User getUserById(int userId) {
-        String sql = "SELECT * FROM USERS WHERE id = " + userId;
+        String sql = "SELECT * FROM USERS "
+                    + "WHERE expiration_date IS null AND id = " + userId;
         Statement stat = null;
         ResultSet rs = null;
         User user = null;
@@ -653,18 +654,10 @@ public class MomowDAO {
             stat = CONN.createStatement();
             rs = stat.executeQuery(sql);
             if (rs.next()) {
-                /*
-                 user = new User(
-                 rs.getString("username"),
-                 new Date(rs.getDate("joindate").getTime()),
-                 rs.getInt("id")
-                 );
-                 */
                 user = new User(
                         rs.getInt("id"),
                         rs.getInt("memberid"),
                         rs.getString("username")
-                        
                 );
             }
             lastError = null;
@@ -737,7 +730,7 @@ public class MomowDAO {
     }
 public UsernameBean displayEditUsername(int userId) {
        String sql = "SELECT * FROM users"
-                  + " WHERE id = " + userId; 
+                  + " WHERE expiration_date IS null AND id = " + userId; 
         Statement stat = null;
         ResultSet rs = null;
         UsernameBean usernameBean = null;

@@ -27,21 +27,10 @@
 	</script>
     </head>
     <body>  
-        <div id="logo">
-            <h1><a id="top">momow Create</a></h1>
-            <p> the Great Mower</p>
-            <br><br><br><br>
-	</div>
-        <div id="menu">
-            <ul>
-                <li><a href="main?action=home">Home</a></li>
-	        <li><a href="main?action=about">About Us</a></li>
-                <li><a href="main?action=contact">Contact Us</a></li>
-	        <li><a href="main?action=registration">Registration</a></li>
-                <li><a href="main?action=login">Login</a></li>
-            </ul>
-        </div>       
-        <h1>Create Service Order</h1>
+        <c:set var="logoName" value="Create" /> 
+        <%@ include file="logo.jsp" %>
+        <%@ include file="header.jsp" %>      
+        <h2>Create Service Order</h2>
         <h2 class="flash">${flash}</h2>
         <c:if test="${!empty param.needByDate}">
             <c:set var="paramNeedByDate" value="${param.needByDate}"/>
@@ -76,9 +65,7 @@
                 <br>
             <input type="SUBMIT" value="Submit">
             <input type="RESET" value="Reset">
-            
-        </form>        
-        
+        </form>       
          <p><a href="main?action=member">Back to Member</a></p>
          <br>
          <%@ include file="footer.jsp" %>

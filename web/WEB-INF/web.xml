@@ -14,7 +14,7 @@
     </context-param>
     <context-param>
         <param-name>db.name</param-name>
-        <param-value>mowmow</param-value>
+        <param-value>momow</param-value>
     </context-param>
     <context-param>
         <param-name>db.user</param-name>

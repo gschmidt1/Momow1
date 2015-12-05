@@ -40,13 +40,10 @@
        
     </head>
     <body>
+        
         <div class="container">
-        <div id="header">    
-        <div id="logo">
-            <h1><a id="top">momow Home</a></h1>
-            <p> the Great Mower</p>
-	</div>
-        </div>
+        <c:set var="logoName" value="Home" /> 
+        <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
         <div id="bodyplus">
         <table class="tableslider">
