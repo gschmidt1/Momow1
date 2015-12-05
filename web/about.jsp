@@ -13,7 +13,7 @@
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
         <div id="bodyplus">
-        <h2>About Us</h2>
+        <h2>About Momow</h2>
         <p>We started Momow with one goal in mind.  To provide top quality lawn service to our local neighborhood residents looking for alternative lawn care service at an affordable price while providing great service.<img class="right" src="images/atswim.jpg" alt="Anderson Swim & Dive"></p>
         <p><img class="left" src="images/bwswim.png" alt="Balcones Blue Wave Swim">We are friendly and knowledgeable about lawn care and we happen to live right next door. Let us take care of your lawn while you're on the go and we promise will keep your lawn looking better than ever.</p>
         <p>We are neighborly proud and would like to earn your business.</p>

@@ -13,7 +13,7 @@
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
         <div id="bodyplus">
-        <h2>Contact Us</h2>
+        <h2>Contact Momow</h2>
         <table>
             <tr><td><b>${company.companyName}</b></th></tr>
             <tr><td><b>Address:</b></td></tr>
