@@ -32,8 +32,7 @@ public class Controller extends HttpServlet {
             case "deleteService": action = deleteService(request); break; 
             case "listService": action = listServices(request); break; 
             case "displayService": action = displayService(request); break;     
-            case "member": action = "member"; break;   
-         //   case "login": action = "login"; break;   
+            case "member": action = "member"; break;    
             case "login": action = login(request); break;
             case "logout": action = logout(request); break;
             default: action = "home";

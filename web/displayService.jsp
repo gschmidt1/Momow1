@@ -1,8 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +22,9 @@
                 <tr><td>Completed Date: </td><td><fmt:formatDate value="${displayService.completedDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="No"/></td></tr>
                 <tr><td>Completed: </td><td>${list.completedFlag ? 'Yes' : 'No'}</td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>
-                <tr><td colspan="2"><textarea name="postText" rows="7" maxlength="140" disabled><c:out value="${fn:trim(displayService.instruction)}"/></textarea>
+                <tr><td colspan="2"><textarea name="postText" rows="5" cols="50" maxlength="140" disabled><c:out value="${fn:trim(displayService.instruction)}"/></textarea>
+        </table>
+        <table>
                 <tr><td colspan="2">Lawn Services: </td></tr>  
         <c:forEach var="service" items="${services}">
             <tr><td><input type="checkbox" name="selected" disabled="disabled" value="${service.serviceType}"  
@@ -58,10 +59,8 @@
                     </form>
                 </td>
             </tr>        
-        </table>    
-        <br>       
+        </table>                         
         <p><a href="main?action=listService">Back to List</a></p>   
-        <br>
         <%@ include file="footer.jsp" %>
     </body>
 </html>

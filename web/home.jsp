@@ -40,13 +40,13 @@
 	</script>
        
     </head>
-    <body>
-        
+    <body> 
         <div class="container">
         <c:set var="logoName" value="Home" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
         <div id="bodyplus">
+        <br>    
         <table class="tableslider">
             <tr><td>
             <ul id="sliderUL">

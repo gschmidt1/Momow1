@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -30,25 +30,23 @@
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>      
         <h2>Create Service Order</h2>
-        <h2 class="flash">${flash}</h2>
+         <h2 class="flash">${flash}</h2>
         <c:if test="${!empty param.needByDate}">
             <c:set var="paramNeedByDate" value="${param.needByDate}"/>
              <fmt:parseDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="formattedDate" />
-             <p>${formattedDate}</p>
-        </c:if>
+        </c:if>      
         <form method="POST" action="main">
             <input type="hidden" name="action" value="createService"/>
             <table>
                 <tr><td>Service: </td><td><select name="serviceGroup"><option value="${services[0].serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>
-                <tr><td>Need by Date: </td><td><input type="text" name="needByDate" value="${param.needByDate}" id="datepicker1" /></td></tr>        
+                <tr><td>Need by Date: </td><td><input type="text" name="needByDate" value="${param.needByDate}" id="datepicker1" /></td></tr>
+                <tr><td colspan="2">Special Instructions: </td></tr>    
+                <tr><td colspan="2"><textarea name="specialInstructions" rows="5" cols="50" maxlength="140"><c:out value="${fn:trim(param.specialInstructions)}"/></textarea></td>
+                <tr><td colspan="2">Lawn Services: </td></tr>
             </table>
-            Special Instructions: 
-            <br>
-            <textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(param.specialInstructions)}"/></textarea>
-            <br>
-            ${fn:trim(displayService.instruction)}
-            <c:forEach var="service" items="${services}">
-                <input type="checkbox" name="selectedServices" value="${service.serviceType}"
+            <table>
+                <c:forEach var="service" items="${services}">
+                <tr><td><input type="checkbox" name="selectedServices" value="${service.serviceType}"
                 <c:forEach var="paramSelectedService" items="${paramValues.selectedServices}"> 
                             <c:choose>
                                 <c:when test="${service.serviceType eq paramSelectedService}">
@@ -57,13 +55,14 @@
                                 <c:otherwise>
                                 </c:otherwise>    
                             </c:choose>    
-                  </c:forEach>/>
-                ${service.serviceTypeDescription}
-                <br>      
+                </c:forEach>/></td>
+                     <td>${service.serviceTypeDescription}</td></tr>    
             </c:forEach>
-                <br>
-            <input type="SUBMIT" value="Submit">
-            <input type="RESET" value="Reset">
+                <tr>
+                    <td><input type="SUBMIT" value="Submit"></td>
+                    <td><input type="RESET" value="Reset"></td>
+                </tr>
+            </table>
         </form>       
          <p><a href="main?action=member">Back to Member</a></p>
          <br>

@@ -25,6 +25,5 @@
                 </c:choose>
             </ul>
         </div>
-        </div>
-    </body>
+        </body>
 </html>

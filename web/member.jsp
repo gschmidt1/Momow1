@@ -9,7 +9,6 @@
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     </head>
     <body>
-        <a name="top">&nbsp;</a>
         <c:set var="logoName" value="Member" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
@@ -18,11 +17,44 @@
         <h2 class="success">${success}</h2>
         <table>
             <tr><th>Click Needed Option</th></tr> 
-            <tr><td><a href="main?action=createService">Create Service Order</a></td></tr>
-            <tr><td><a href="main?action=listService">List Services</a></td></tr>
-            <tr><td><a href="main?action=editRegistration&mode=display">Update Membership</a></td></tr>
-            <tr><td><a href="main?action=editPassword&mode=display">Update Password</a></td></tr>
-            <tr><td><a href="main?action=editUsername&mode=display">Update Username</a></td></tr>
+            <tr><td>
+                    <form method="GET" action="main">
+                        <input type="hidden" name="action" value="createService"/>           
+                        <input type="submit" value="Create Service Order" style="width: 500px; height: 30px;"/>
+                    </form>
+                    <br>
+             </td></tr>
+            <tr><td>
+                    <form method="GET" action="main">
+                        <input type="hidden" name="action" value="listService"/>           
+                        <input type="submit" value="List Services" style="width: 500px; height: 30px;"/>
+                    </form>
+                    <br>
+             </td></tr>
+            <tr><td>
+                    <form method="GET" action="main">
+                        <input type="hidden" name="action" value="editRegistration"/>     
+                        <input type="hidden" name="mode" value="display"/>  
+                        <input type="submit" value="Update Membership" style="width: 500px; height: 30px;"/>
+                    </form>
+                    <br>
+             </td></tr>
+            <tr><td>
+                    <form method="GET" action="main">
+                        <input type="hidden" name="action" value="editPassword"/>     
+                        <input type="hidden" name="mode" value="display"/>  
+                        <input type="submit" value="Update Password" style="width: 500px; height: 30px;" />
+                    </form>
+                    <br>
+             </td></tr>
+            <tr><td>
+                    <form method="GET" action="main">
+                        <input type="hidden" name="action" value="editUsername"/>     
+                        <input type="hidden" name="mode" value="display" />  
+                        <input type="submit" value="Update Username" style="width: 500px; height: 30px;" />
+                    </form>
+                    <br>
+             </td></tr>
         </table>
         <br>
         <%@ include file="footer.jsp" %>
