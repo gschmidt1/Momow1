@@ -26,6 +26,7 @@ public class Controller extends HttpServlet {
             case "createService": action = createServices(request); break; 
             case "editService": action = editService(request); break;     
             case "Service": action = editService(request); break; 
+            case "displayEditService": action = displayEditService(request); break;
             case "editRegistration": action = editRegistration(request); break;
             case "editPassword": action = editPassword(request); break;
             case "editUsername": action = editUsername(request); break;
@@ -105,13 +106,13 @@ public class Controller extends HttpServlet {
         User loginUser = (User) request.getSession().getAttribute("user");
        
         ServiceOrder displayService = new ServiceOrder(loginUser.getMemberId(), inServiceGroup, needByDate, inSpecialInstructions, inArraySelectedServices);
-        
+        displayService.setId(serviceId);
         db.editService(displayService);
         if (db.getLastError() != null) {
             request.setAttribute("flash", db.getLastError());
             return "editService";
         }
-        request.setAttribute("success", "Successfully edited service");
+        request.setAttribute("success", "Successfully updated service");
         return listServices(request);
     }
        

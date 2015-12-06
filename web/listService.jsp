@@ -13,7 +13,7 @@
         <c:set var="logoName" value="List" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
-        <h2>Services List</h2>
+        <h2>Service Orders List</h2>
         <table>
             <h2 class="flash">${flash}</h2>
             <h2 class="success">${success}</h2>
