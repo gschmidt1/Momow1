@@ -13,6 +13,7 @@
         <c:set var="logoName" value="Display" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
+        <div id="bodyplus">
         <h2>Service Order</h2>
         <h2 class="flash">${flash}</h2>
         <table>
@@ -62,5 +63,6 @@
         </table>                         
         <p><a href="main?action=listService">Back to List</a></p>   
         <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>

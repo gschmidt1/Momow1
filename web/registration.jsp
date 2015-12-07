@@ -12,6 +12,7 @@
         <c:set var="logoName" value="Register" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %> 
+        <div id="bodyplus">
         <h2>Register for Momow</h2>
         <h2 class="flash">${flash}</h2>
         <form method="POST" action="main">
@@ -35,5 +36,6 @@
         </form>
         <br>
        <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>

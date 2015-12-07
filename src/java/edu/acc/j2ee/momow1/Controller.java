@@ -264,6 +264,7 @@ public class Controller extends HttpServlet {
         db.editRegistration(loginUser.getMemberId(), registrationBean);
         if (db.getLastError() != null) {
             request.setAttribute("flash", db.getLastError());
+            request.setAttribute("registrationBean", registrationBean);
             return "editRegistration";
         }
         request.setAttribute("success", "Successfully updated membership");

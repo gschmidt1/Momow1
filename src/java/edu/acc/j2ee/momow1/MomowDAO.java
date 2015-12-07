@@ -604,7 +604,7 @@ public class MomowDAO {
     }
      
      public void editRegistration(int memberId, RegistrationBean registrationBean) {
-        String sql = "UPDATE registration SET firstname = ?, lastname = ?, address = ?,"
+        String sql = "UPDATE members SET firstname = ?, lastname = ?, address = ?,"
                 + " city = ?, st = ?, zip = ?, phone = ?, text_flag = ?, "
                 + " email = ?, change_user_name = ?, change_date = ?"
                 + " WHERE id = ?";

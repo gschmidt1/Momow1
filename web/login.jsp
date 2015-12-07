@@ -12,11 +12,12 @@
         <c:set var="logoName" value="Login" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
+        <div id="bodyplus">
         <h2>Login to Momow</h2>
         <h2 class="flash">${flash}</h2>
         <form method="POST" action="main">
             <input type="hidden" name="action" value="login"/>
-            <table id="formtable">
+            <table>
                 <tr><td>User Name:</td><td><input type="text" name="user"/></td></tr>
                 <tr><td>Password:</td><td><input type="password" name="pass"/></td></tr>
                 <tr><td colspan="2"><input type="submit" value="Login"/></td></tr>
@@ -25,5 +26,6 @@
         <p><a href="main?action=home">Back to Home</a></p>
         <br>
         <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>

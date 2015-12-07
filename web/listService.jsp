@@ -13,8 +13,9 @@
         <c:set var="logoName" value="List" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
-        <h2>Service Orders List</h2>
-        <table>
+        <div id="bodyplus">
+        <h2>Service Orders</h2>
+        <table border="1">
             <h2 class="flash">${flash}</h2>
             <h2 class="success">${success}</h2>
             <c:if test="${not empty listServices}">
@@ -32,6 +33,7 @@
         <p><a href="main?action=member">Back to Member</a></p> 
         <br>
         <%@ include file="footer.jsp" %>
+        </div>
         </body>
 </html>
 

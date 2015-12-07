@@ -12,6 +12,7 @@
         <c:set var="logoName" value="Member" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
+        <div id="bodyplus">
         <h2>Member Services</h2>
         <h2 class="flash">${flash}</h2>
         <h2 class="success">${success}</h2>
@@ -58,5 +59,6 @@
         </table>
         <br>
         <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>

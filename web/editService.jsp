@@ -30,6 +30,7 @@
         <c:set var="logoName" value="Edit" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
+        <div id="bodyplus">
         <h2>Edit Services</h2>
         <h2 class="flash">${flash}</h2>
         <c:choose>
@@ -62,14 +63,15 @@
             <input type="hidden" name="action" value="editService"/>
             <input type="hidden" name="serviceId" value="<c:out value="${paramServiceId}"/>"/>             
             <table>
+                <tr><td colspan="2">Required fields * </td></tr>
                 <tr><td>Service: </td><td><select name="serviceGroup"><option value="${displayService.serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>  
-                <tr><td>Need by Date: </td><td>         
+                <tr><td>Need by Date *: </td><td>         
                         <fmt:formatDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="formattedDate" type="date" />
                        <input type="text" name="needByDate" value="${formattedDate}" id="datepicker1" /></td></tr>                          
                 <tr><td>Scheduled Date: </td><td><fmt:formatDate value="${displayService.scheduledDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="Not Yet"/></td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>
-                <tr><td colspan="2"><textarea name="specialInstructions" rows="7" maxlength="140"><c:out value="${fn:trim(paramInstruction)}"/></textarea>
-                <tr><td colspan="2">Lawn Services: </td></tr>  
+                <tr><td colspan="2"><textarea name="specialInstructions" rows="5" cols="50" maxlength="140"><c:out value="${fn:trim(paramInstruction)}"/></textarea>
+                <tr><td colspan="2">Lawn Services *: </td></tr>  
         <c:forEach var="service" items="${services}">
             <tr><td><input type="checkbox" name="selectedServices" value="${service.serviceType}" 
               <c:choose>
@@ -118,5 +120,6 @@
         <p><a href="main?action=listService">Back to List</a></p>   
         <br>
         <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>

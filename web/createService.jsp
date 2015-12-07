@@ -28,7 +28,8 @@
     <body>  
         <c:set var="logoName" value="Create" /> 
         <%@ include file="logo.jsp" %>
-        <%@ include file="header.jsp" %>      
+        <%@ include file="header.jsp" %>  
+        <div id="bodyplus">
         <h2>Create Service Order</h2>
          <h2 class="flash">${flash}</h2>
         <c:if test="${!empty param.needByDate}">
@@ -38,11 +39,12 @@
         <form method="POST" action="main">
             <input type="hidden" name="action" value="createService"/>
             <table>
+                <tr><td colspan="2">Required fields * </td></tr>
                 <tr><td>Service: </td><td><select name="serviceGroup"><option value="${services[0].serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>
-                <tr><td>Need by Date: </td><td><input type="text" name="needByDate" value="${param.needByDate}" id="datepicker1" /></td></tr>
+                <tr><td>Need by Date *: </td><td><input type="text" name="needByDate" value="${param.needByDate}" id="datepicker1" /></td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>    
                 <tr><td colspan="2"><textarea name="specialInstructions" rows="5" cols="50" maxlength="140"><c:out value="${fn:trim(param.specialInstructions)}"/></textarea></td>
-                <tr><td colspan="2">Lawn Services: </td></tr>
+                <tr><td colspan="2">Lawn Services *: </td></tr>
             </table>
             <table>
                 <c:forEach var="service" items="${services}">
@@ -67,5 +69,6 @@
          <p><a href="main?action=member">Back to Member</a></p>
          <br>
          <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>

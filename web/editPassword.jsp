@@ -12,6 +12,7 @@
         <c:set var="logoName" value="Edit" /> 
         <%@ include file="logo.jsp" %>
         <%@ include file="header.jsp" %>
+        <div id="bodyplus">
         <h2>Update Password</h2>
         <h2 class="flash">${flash}</h2>
         <form method="POST" action="main">
@@ -26,5 +27,6 @@
         <p><a href="main?action=member">Back to Member</a></p>  
         <br>
        <%@ include file="footer.jsp" %>
+        </div>
     </body>
 </html>
