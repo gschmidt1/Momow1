@@ -23,6 +23,8 @@
             <tr><td><b>Phone: </b>${company.phone}</td></tr>
         </table>
         <p></p>
+        <p><a href="main?action=home">Back to Home</a></p>
+        <br>
         <%@ include file="footer.jsp" %>
         </div>
     </body>

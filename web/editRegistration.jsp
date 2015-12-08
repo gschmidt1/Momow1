@@ -19,7 +19,7 @@
             <input type="hidden" name="mode" value="edit"/>
             <input type="hidden" name="action" value="editRegistration"/>
             <table id="formtable">
-                <tr><td colspan="2">Required fields * </td></tr>
+                <tr><td colspan="2"><em>Required fields * </em></td></tr>
                 <tr><td>Your First Name *:</td><td><input value="${registrationBean.firstName}" type="text" name="fname"/></td></tr>
                 <tr><td>Your Last Name *:</td><td><input value="${registrationBean.lastName}" type="text" name="lname"/></td></tr>
                 <tr><td>Your Address *:</td><td><input value="${registrationBean.address}" type="text" name="address"/></td></tr>

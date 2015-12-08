@@ -39,7 +39,7 @@
         <form method="POST" action="main">
             <input type="hidden" name="action" value="createService"/>
             <table>
-                <tr><td colspan="2">Required fields * </td></tr>
+                <tr><td colspan="2"><em>Required fields * </em></td></tr>
                 <tr><td>Service: </td><td><select name="serviceGroup"><option value="${services[0].serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>
                 <tr><td>Need by Date *: </td><td><input type="text" name="needByDate" value="${param.needByDate}" id="datepicker1" /></td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>    

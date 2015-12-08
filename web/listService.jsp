@@ -15,10 +15,11 @@
         <%@ include file="header.jsp" %>
         <div id="bodyplus">
         <h2>Service Orders</h2>
-        <table border="1">
             <h2 class="flash">${flash}</h2>
             <h2 class="success">${success}</h2>
             <c:if test="${not empty listServices}">
+                <em>Click order to Edit or Delete</em>
+                <table border="1">
                 <tr><th>Service</th><th>Need by Date</th><th>Scheduled Date</th><th>Completed</th></tr>
             </c:if>    
             <c:forEach var="list" items="${listServices}">

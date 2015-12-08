@@ -63,7 +63,7 @@
             <input type="hidden" name="action" value="editService"/>
             <input type="hidden" name="serviceId" value="<c:out value="${paramServiceId}"/>"/>             
             <table>
-                <tr><td colspan="2">Required fields * </td></tr>
+                <tr><td colspan="2"><em>Required fields * </em></td></tr>
                 <tr><td>Service: </td><td><select name="serviceGroup"><option value="${displayService.serviceGroup}">${services[0].serviceGroupDescription}</option></select></td></tr>  
                 <tr><td>Need by Date *: </td><td>         
                         <fmt:formatDate pattern="MM/dd/yyyy" value="${paramNeedByDate}" var="formattedDate" type="date" />
@@ -71,7 +71,10 @@
                 <tr><td>Scheduled Date: </td><td><fmt:formatDate value="${displayService.scheduledDate}" var="formattedDate" type="date" pattern="MM-dd-yyyy" /><c:out value="${formattedDate}" default="Not Yet"/></td></tr>
                 <tr><td colspan="2">Special Instructions: </td></tr>
                 <tr><td colspan="2"><textarea name="specialInstructions" rows="5" cols="50" maxlength="140"><c:out value="${fn:trim(paramInstruction)}"/></textarea>
+            </table>           
+             <table>        
                 <tr><td colspan="2">Lawn Services *: </td></tr>  
+                
         <c:forEach var="service" items="${services}">
             <tr><td><input type="checkbox" name="selectedServices" value="${service.serviceType}" 
               <c:choose>
@@ -109,9 +112,6 @@
             <tr>
                 <td>
                     <input type="SUBMIT" value="Submit">
-                </td>
-                <td>
-                    <input type="RESET" value="Reset">
                 </td>
             </tr>        
         </table>           

@@ -17,6 +17,7 @@
                 <c:when test="${user ne null}">
                 <li><a href="main?action=member">Member</a></li>
                 <li><a href="main?action=logout">Log Out</a></li>
+                <li><a>Welcome ${user.userName}</a></li>
                 </c:when>
                 <c:otherwise>
                 <li><a href="main?action=registration">Registration</a></li>
